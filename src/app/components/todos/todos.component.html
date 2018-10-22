@@ -3,7 +3,7 @@
   <a class="btn btn-primary pull-right" (onClick)="addTodo()"><i class="fa fa-plus"></i></a>
   <div class="row">
     <div class="col" *ngFor="let todo of todos">
-      <app-todo [todo]="todo"></app-todo>
+      <app-todo (deleted)="delete()" [todo]="todo"></app-todo>
     </div>
   </div>
 

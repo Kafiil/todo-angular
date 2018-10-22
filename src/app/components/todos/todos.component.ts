@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { TodoService } from 'src/app/services/todo.service';
 import { Todo } from 'src/app/models/todo';
 
@@ -10,11 +10,15 @@ import { Todo } from 'src/app/models/todo';
 export class TodosComponent implements OnInit {
 
   todos: Todo[];
+
   constructor(private todoService: TodoService) {
     this.todos = this.todoService.getAll();
   }
 
-  addTodo = () => { };
+  delete = (item: Todo) => {
+    console.log('deleted was called from the chiled');
+    console.log(item);
+  }
 
   ngOnInit() {
   }
