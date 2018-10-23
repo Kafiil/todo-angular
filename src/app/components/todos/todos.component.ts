@@ -15,9 +15,9 @@ export class TodosComponent implements OnInit {
     this.todos = this.todoService.getAll();
   }
 
-  delete = (item: Todo) => {
-    console.log('deleted was called from the chiled');
-    console.log(item);
+  onDelete = (item: number) => {
+    this.todoService.deleteItem(item);
+    this.todos = this.todoService.getAll();
   }
 
   ngOnInit() {

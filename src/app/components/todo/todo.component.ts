@@ -9,9 +9,10 @@ import { Todo } from 'src/app/models/todo';
 export class TodoComponent implements OnInit {
 
   @Input() todo: Todo;
-  @Output() deleted: EventEmitter<Todo> = new EventEmitter<Todo>();
+  @Output() delete: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {
+    this.delete.subscribe(() => console.log(` item ${this.todo.id} was deleted`));
   }
 
   ngOnInit() {
@@ -20,10 +21,9 @@ export class TodoComponent implements OnInit {
 
   toggleTodo = () => {
     this.todo.done = !this.todo.done;
-    console.log(event);
   }
   deleteTodo = () => {
-    this.deleted.emit(this.todo);
+    this.delete.emit(this.todo.id);
   }
 
 }
