@@ -1,8 +1,15 @@
-<div class="card" style="width: 18rem;">
+<div class="card">
   <div class="card-body">
     <h5 class="card-title">{{todo.title}}</h5>
     <p class="card-text">{{todo.description}}</p>
-    <a href="#" (click)="toggleTodo()" class="btn btn-primary">Toogle</a>
-    <a href="#" (click)="deleteTodo()" class="btn btn-danger">Delete</a>
+    <div class="btn-group">
+      <a href="#" (click)="toggleTodo()" [className]="todo.done ? 'btn btn-primary':'btn btn-secondary'">
+        <i [className]="todo.done ? 'fa fa-toggle-on':'fa fa-toggle-off'"></i>
+        Toogle
+      </a>
+      <a href="#" (click)="deleteTodo()" class="btn btn-danger">
+        <i class="fa fa-trash"></i>
+        Delete</a>
+    </div>
   </div>
 </div>
