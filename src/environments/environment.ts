@@ -9,7 +9,7 @@ export const environment = {
     authDomain: 'todo-b13cc.firebaseapp.com',
     databaseURL: 'https://todo-b13cc.firebaseio.com',
     projectId: 'todo-b13cc',
-    storageBucket: '',
+    storageBucket: 'todo-b13cc.appspot.com',
     messagingSenderId: '728910034453'
   }
 };
