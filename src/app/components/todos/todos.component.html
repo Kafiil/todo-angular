@@ -1,10 +1,10 @@
 <div class="container mt-4">
 
   <a class="btn btn-primary pull-right" (click)="displayForm()"><i class="fa fa-plus"></i></a>
-  <app-add-todo *ngIf="showForm" (addTodo)=onAddTodo($event)></app-add-todo>
+  <app-add-todo *ngIf="showForm" (addTodo)="onAddTodo($event)" (editTodo)="onEdit($event)" (cancel)="onCancel()" [todo]="todoToEdit"></app-add-todo>
   <div class="row">
-    <div class="col-sm" *ngFor="let todo of todos" class="m-2">
-      <app-todo (delete)="onDelete($event)" [todo]="todo"></app-todo>
+    <div class="col-sm" *ngFor="let todo of todos | async" class="m-2">
+      <app-todo (delete)="onDelete($event)" (toggle)="onToggle($event)" (edit)="onRunEdit($event)" [todo]=" todo"></app-todo>
     </div>
   </div>
 

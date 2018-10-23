@@ -1,31 +1,47 @@
+import { Todo } from './../models/todo';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Todo } from '../models/todo';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  todos: Todo[] = [
-    { id: 1, title: 'HomeWork', description: 'Should make this app use firestore instead of memory objects', done: false },
-    { id: 2, title: 'HomeWork', description: 'Should make this app use firestore instead of memory objects', done: false },
-    { id: 3, title: 'HomeWork', description: 'Should make this app use firestore instead of memory objects', done: false },
-    { id: 4, title: 'HomeWork', description: 'Should make this app use firestore instead of memory objects', done: false },
-    { id: 5, title: 'Work', description: 'Try to focus on the given task', done: false },
-    { id: 0, title: 'Work', description: 'Try to focus on the given task', done: false }
-  ]
-    ;
-  constructor() { }
 
-  getAll(): Todo[] {
-    return this.todos;
+  todos: Observable<Todo[]>;
+  itemCollection: AngularFirestoreCollection<Todo>;
+  items: Observable<Todo[]>;
+
+  constructor(private afs: AngularFirestore) {
+    this.itemCollection = afs.collection<Todo>('items');
+  }
+
+  getAll(): Observable<Todo[]> {
+    this.items = this.itemCollection.snapshotChanges()
+      .pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data } as Todo;
+        }))
+      );
+
+    return this.items;
   }
 
   addItem(todo: Todo) {
-    todo.id = this.todos.length;
-    this.todos.push(todo);
-  }
-  deleteItem(item: number): any {
-    this.todos = this.todos.filter(i => i.id !== item);
+    this.itemCollection.add(todo)
+      .catch(err => console.log('Error in adding item ' + todo.id, err));
   }
 
+  deleteItem(id: string): any {
+    this.itemCollection.doc(`${id}`).delete()
+      .catch(err => console.log('Error in deleting item ' + id, err));
+  }
+
+  updateItem(item: Todo): any {
+    this.itemCollection.doc(item.id).update(item)
+      .catch(err => console.log('Error in updatin item ' + item.id, err));
+  }
 }

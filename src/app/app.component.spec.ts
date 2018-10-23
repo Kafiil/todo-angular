@@ -1,12 +1,28 @@
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { FormsModule } from '@angular/forms';
+import { TodoService } from './services/todo.service';
+import { FooterComponent } from './components/footer/footer.component';
+import { AddTodoComponent } from './components/add-todo/add-todo.component';
+import { TodoComponent } from './components/todo/todo.component';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { TodosComponent } from './components/todos/todos.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent, TodosComponent, TodoComponent, AddTodoComponent, NavbarComponent, FooterComponent
       ],
+      providers: [
+        TodoService
+      ],
+      imports: [
+        FormsModule, BrowserModule
+      ]
     }).compileComponents();
   }));
 

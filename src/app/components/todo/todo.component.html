@@ -5,9 +5,13 @@
     <div class="btn-group">
       <a href="#" (click)="toggleTodo()" [className]="todo.done ? 'btn btn-primary':'btn btn-secondary'">
         <i [className]="todo.done ? 'fa fa-toggle-on':'fa fa-toggle-off'"></i>
-        Toogle
+        Toggle
       </a>
-      <a href="#" (click)="deleteTodo()" class="btn btn-danger">
+      <a href="#" (click)="editTodo()" class="btn btn-info">
+        <i class="fa fa-pencil"></i>
+        Edit
+      </a>
+      <a href="#" (click)="deleteTodo(todo.id)" class="btn btn-danger">
         <i class="fa fa-trash"></i>
         Delete</a>
     </div>

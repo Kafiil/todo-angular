@@ -1,5 +1,6 @@
+import { element } from 'protractor';
 import { Todo } from 'src/app/models/todo';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-add-todo',
@@ -8,24 +9,39 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class AddTodoComponent implements OnInit {
 
-  todo: Todo;
-  initialTodo: Todo = { title: '', description: '' };
+  @Input() todo;
   @Output() addTodo: EventEmitter<any> = new EventEmitter<number>();
+  @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
+  @Output() editTodo: EventEmitter<any> = new EventEmitter<any>();
+  editMode = false;
   constructor() {
-    this.todo = { ...this.initialTodo };
   }
 
   ngOnInit() {
+    if (!this.todo) {
+      this.todo = {};
+    } else {
+      this.editMode = true;
+    }
   }
 
   handleSubmit = () => {
     if (this.todo.title && this.todo.description) {
       this.addTodo.emit(this.todo);
-      this.todo = { ...this.initialTodo };
+      this.todo = {};
     }
+    this.editMode = false;
   }
 
+  cancelEdit() {
+    this.todo = {};
+    this.editMode = false;
+    this.cancel.emit();
+  }
 
-
-
+  updateTodo() {
+    this.editTodo.emit(this.todo);
+    this.cancel.emit();
+    this.editMode = false;
+  }
 }

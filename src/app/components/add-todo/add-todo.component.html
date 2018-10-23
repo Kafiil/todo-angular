@@ -8,5 +8,8 @@
     <textarea name="description" [(ngModel)]="todo.description" class="form-control" id="description" required>
   </textarea>
   </div>
-  <button type="submit" class="btn btn-success">Add Todo</button>
+
+  <button *ngIf="!editMode" type="submit" class="btn btn-success">Add</button>
+  <a *ngIf="editMode" (click)="updateTodo()" class="btn btn-info">Update</a>
+  <a (click)="cancelEdit()" class="btn btn-warning">Cancel</a>
 </form>
