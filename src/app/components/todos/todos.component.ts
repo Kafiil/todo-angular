@@ -8,7 +8,7 @@ import { Todo } from 'src/app/models/todo';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-
+  showForm: boolean;
   todos: Todo[];
 
   constructor(private todoService: TodoService) {
@@ -18,6 +18,21 @@ export class TodosComponent implements OnInit {
   onDelete = (item: number) => {
     this.todoService.deleteItem(item);
     this.todos = this.todoService.getAll();
+  }
+
+  onAddTodo = (item: Todo) => {
+    this.todoService.addItem(item);
+    this.todos = this.todoService.getAll();
+    this.hideForm();
+
+  }
+
+  hideForm = () => {
+    this.showForm = false;
+  }
+
+  displayForm = () => {
+    this.showForm = true;
   }
 
   ngOnInit() {

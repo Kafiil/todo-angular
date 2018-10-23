@@ -11,7 +11,7 @@ export class TodoService {
     { id: 3, title: 'HomeWork', description: 'Should make this app use firestore instead of memory objects', done: false },
     { id: 4, title: 'HomeWork', description: 'Should make this app use firestore instead of memory objects', done: false },
     { id: 5, title: 'Work', description: 'Try to focus on the given task', done: false },
-    { id: 6, title: 'Work', description: 'Try to focus on the given task', done: false }
+    { id: 0, title: 'Work', description: 'Try to focus on the given task', done: false }
   ]
     ;
   constructor() { }
@@ -21,6 +21,7 @@ export class TodoService {
   }
 
   addItem(todo: Todo) {
+    todo.id = this.todos.length;
     this.todos.push(todo);
   }
   deleteItem(item: number): any {
